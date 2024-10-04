@@ -1,30 +1,60 @@
 import React from 'react';
-import { AppBar, Toolbar, Button } from '@mui/material';
+import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import logo from '../img/foto1.jpg'
 
-const NavBar = () => {
+const Navbar = () => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#4caf50' }}>
+    <AppBar 
+      position="static" 
+      sx={{ 
+        backgroundColor: '#90EE90', 
+        boxShadow: 'none', 
+        borderBottom: '20px solid #FFFFFF', // Contorno en la parte inferior de la barra
+        paddingBottom: '10px' // Añade un poco de relleno en la parte inferior
+      }}
+    >
       <Toolbar>
-        <img
-            src={logo} // Ruta de la imagen
-            alt="Logo"
-            style={{ height: '40px', marginRight: '16px' }} // Ajusta el tamaño y el margen según sea necesario
-        />
-        <Button color="inherit" component={Link} to="/products">
-          Productos
-        </Button> 
-        <Button color="inherit" component={Link} to="/about">
-          Contacto
-        </Button>
-        <Button color="inherit" component={Link} to="/carrito">
-          Carrito
-        </Button>
-        
+        {/* Contenedor para los botones */}
+        <Box sx={{ flexGrow: 1 }}>
+          <Button 
+            sx={{ color: '#000000', marginLeft: '400px', fontFamily: 'Cooper Black', fontSize: '16px'}} 
+            component={Link} 
+            to="/"
+          >
+            Home
+          </Button>
+          <Button 
+            sx={{ color: '#000000', marginLeft: '100px', fontFamily: 'Cooper Black', fontSize: '16px' }} 
+            component={Link} 
+            to="/decoraciones"
+          >
+            Decoraciones
+          </Button>
+          <Button 
+            sx={{ color: '#000000', marginLeft: '100px', fontFamily: 'Cooper Black', fontSize: '16px'}} 
+            component={Link} 
+            to="/muebles"
+          >
+            Muebles
+          </Button>
+          <Button 
+            sx={{ color: '#000000', marginLeft: '100px', fontFamily: 'Cooper Black', fontSize: '16px'}} 
+            component={Link} 
+            to="/colgantes"
+          >
+            Colgantes
+          </Button>
+          <Button 
+            sx={{ color: '#000000', marginLeft: '100px', fontFamily: 'Cooper Black', fontSize: '16px'}} 
+            component={Link} 
+            to="/temporada"
+          >
+            Temporada
+          </Button>
+        </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default NavBar;
+export default Navbar;

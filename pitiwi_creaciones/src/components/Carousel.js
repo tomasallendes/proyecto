@@ -17,8 +17,8 @@ const Carousel = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ width: '60%' }}> {/* Ajusta el ancho según sea necesario */}
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '60%' }}> {/* Ajusta el ancho según sea necesario */} 
         <Slider {...settings}>
           <div>
             <img src={car1} alt="Slide 1" style={{ width: '100%', objectFit: 'cover' }} />

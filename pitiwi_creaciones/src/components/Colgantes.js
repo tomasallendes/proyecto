@@ -1,21 +1,26 @@
 import React from 'react';
-import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button, Grid2 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Carousel from './Carousel';
+
+import product1 from '../img/producto1.jpg';
+import product2 from '../img/producto2.jpg';
+import product3 from '../img/producto3.jpg';
+import product4 from '../img/producto4.jpg';
+
 
 const products = [
-  { id: 1, name: 'Producto 1', price: '$50', image: '/img/product1.jpg', description: 'Este es el producto 1.' },
-  { id: 2, name: 'Producto 2', price: '$100', image: '/img/product2.jpg', description: 'Este es el producto 2.' },
-  { id: 3, name: 'Producto 3', price: '$150', image: '/img/product3.jpg', description: 'Este es el producto 3.' }
+  { id: 1, name: 'Producto 1', price: '$50', image: product1, description: 'Este es el producto 1.' },
+  { id: 2, name: 'Producto 2', price: '$100', image: product2, description: 'Este es el producto 2.' },
+  { id: 3, name: 'Producto 3', price: '$150', image: product3, description: 'Este es el producto 3.' },
+  { id: 3, name: 'Producto 3', price: '$250', image: product4, description: 'Este es el producto 4.' }
 ];
 
 const Products = () => {
   return (
     <div>
-    <Carousel/>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid2 container spacing={4} justifyContent="center">
         {products.map((product) => (
-          <Grid item key={product.id} xs={12} sm={6} md={4}>
+          <Grid2 item key={product.id} xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
                 component="img"
@@ -41,9 +46,9 @@ const Products = () => {
                 </Button>
               </CardContent>
             </Card>
-          </Grid>
+          </Grid2>
         ))}
-      </Grid>
+      </Grid2>
     </div>
   );
 };
