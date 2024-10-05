@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,6 +24,7 @@ SECRET_KEY = 'django-insecure-ppg3hcy@odt8n*g47cqaw_3j&(1_sju1gsai65^bkpq8!m8i_)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ALLOW_ALL_ORIGINS = True  # Para permitir todo en modo desarrollo
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'productos',
+    'corsheaders',
+    'rest_framework',   
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'myapp_backend.urls'
@@ -71,6 +75,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'myapp_backend.wsgi.application'
 
 
+
+# Configuración de media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
