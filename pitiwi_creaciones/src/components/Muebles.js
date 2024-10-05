@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 const Products = () => {
   const [products, setProducts] = useState([]);  // Estado para almacenar los productos
   const [loading, setLoading] = useState(true);  // Estado para manejar el loading
-
+  const categoria = 'Mueble';
   useEffect(() => {
     // Hacer la petición a la API cuando el componente se monte
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/productos/');
+        const response = await fetch(`http://localhost:8000/api/productos/?categoria=${categoria}`);
         const data = await response.json();  // Convertir la respuesta a JSON
         console.log(data);  // Verificar que los datos se reciban correctamente
         setProducts(data);  // Actualizar el estado con los productos obtenidos

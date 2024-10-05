@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, Grid2 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import product1 from '../img/producto1.jpg';
-import product2 from '../img/producto2.jpg';
-import product3 from '../img/producto3.jpg';
-import product4 from '../img/producto4.jpg';
-
-
-const products = [
-  { id: 1, name: 'Producto 1', price: '$50', image: product1, description: 'Este es el producto 1.' },
-  { id: 2, name: 'Producto 2', price: '$100', image: product2, description: 'Este es el producto 2.' },
-  { id: 3, name: 'Producto 3', price: '$150', image: product3, description: 'Este es el producto 3.' },
-  { id: 3, name: 'Producto 3', price: '$250', image: product4, description: 'Este es el producto 4.' }
-];
-
 const Products = () => {
+  const [products, setProducts] = useState([]);  // Estado para almacenar los productos
+  const [loading, setLoading] = useState(true);  // Estado para manejar el loading
+  const categoria = 'Colgante';
+  useEffect(() => {
+    // Hacer la petición a la API cuando el componente se monte
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/productos/?categoria=${categoria}`);
+        const data = await response.json();  // Convertir la respuesta a JSON
+        console.log(data);  // Verificar que los datos se reciban correctamente
+        setProducts(data);  // Actualizar el estado con los productos obtenidos
+        setLoading(false);  // Ya no está cargando
+      } catch (error) {
+        console.error('Error al obtener productos:', error);
+        setLoading(false);  // Aún si hay error, dejar de cargar
+      }
+    };
+
+    fetchProducts();
+  }, []);  // Solo se ejecuta una vez cuando el componente se monta
+
+  if (loading) {
+    return <Typography>Cargando productos...</Typography>;  // Mostrar algo mientras se cargan los productos
+  }
+
   return (
     <div>
       <Grid2 container spacing={4} justifyContent="center">
@@ -25,15 +37,15 @@ const Products = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image={product.image}
-                alt={product.name}
+                image={product.imagen} // Usar la imagen de la API
+                alt={product.nombre}
               />
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {product.name}
+                  {product.nombre}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {product.price}
+                  {product.precio}
                 </Typography>
                 <Button
                   component={Link}
