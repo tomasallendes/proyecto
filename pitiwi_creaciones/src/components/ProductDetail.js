@@ -1,43 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState, useContext  } from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Card, CardContent, CardMedia } from '@mui/material';
-import product1 from '../img/producto1.jpg';
-import product2 from '../img/producto2.jpg';
-import product3 from '../img/producto3.jpg';
+import Carousel from './Carousel';  // Importa tu componente de Carrusel
+import { Grid, Typography, Box, Button} from '@mui/material';
+import { CartContext } from './Cartcontext';
 
-const products = [
-  { id: 1, name: 'Producto 1', price: '$50', image: product1, description: 'Descripción detallada del producto 1.' },
-  { id: 2, name: 'Producto 2', price: '$100', image: product2, description: 'Descripción detallada del producto 2.' },
-  { id: 3, name: 'Producto 3', price: '$150', image: product3, description: 'Descripción detallada del producto 3.' }
-];
+const ProductDetails = () => {
+  const { id } = useParams();  // Obtener el id del producto desde la URL
+  const [product, setProduct] = useState(null);  // Estado para almacenar el producto
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useContext(CartContext); // Usar el contexto del carrito
+  useEffect(() => {
+    // Hacer la petición a la API para obtener los detalles del producto
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/productos/${id}`);
 
-const ProductDetail = () => {
-  const { productId } = useParams();
-  const product = products.find(p => p.id === parseInt(productId));
+        const data = await response.json();
+        setProduct(data);  // Almacenar el producto en el estado
+        setLoading(false);
+      } catch (error) {
+        console.error('Error al obtener detalles del producto:', error.message);
+        setLoading(false);
+      }
+    };
 
-  if (!product) return <div>Producto no encontrado</div>;
+    fetchProduct();
+  }, [id]);  // El efecto se ejecuta cada vez que el id cambia
 
+  if (loading) {
+    return <Typography>Cargando detalles del producto...</Typography>;
+  }
+
+  if (!product) {
+    return <Typography>Producto no encontrado</Typography>;
+  }
+
+  // Convertimos la imagen en un array para pasarla al carrusel
+  const images = [product.imagen_portada, product.imagen1, product.imagen2];  // Si tienes más imágenes en el futuro, puedes incluirlas aquí
+
+  
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        height="300"
-        image={product.image}
-        alt={product.name}
-      />
-      <CardContent>
-        <Typography variant="h4" component="div">
-          {product.name}
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          {product.price}
-        </Typography>
-        <Typography variant="body1" component="p" style={{ marginTop: '10px' }}>
-          {product.description}
-        </Typography>
-      </CardContent>
-    </Card>
+    <Grid container spacing={4} justifyContent="center">
+      {/* Carrusel de imágenes a la izquierda */}
+      <Grid item xs={12} md={6}>
+          <Carousel images={images} width="80%" />
+      </Grid>
+
+      {/* Detalles del producto a la derecha */}
+      <Grid item xs={12} md={6}>
+        <Box>
+          <Typography variant="h4">{product.nombre}</Typography>
+          <Typography variant="body1" color="textSecondary" paragraph>
+            {product.descripcion}
+          </Typography>
+          <Typography variant="h6" color="primary">
+            Precio: {product.precio} USD
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Stock: {product.stock}
+          </Typography>
+          {/* Botón para añadir al carrito */}
+        <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => addToCart(product)}
+            style={{ marginTop: '10px' }}>
+            Añadir al carrito
+        </Button>
+        </Box>
+      </Grid>
+
+    </Grid>
   );
 };
 
-export default ProductDetail;
+export default ProductDetails;

@@ -11,6 +11,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Temporada from './components/Temporada';
 import Contacto from './components/Contacto';
+import { CartProvider } from './components/Cartcontext';  // Importa el CartProvider
 
 const MainLayout = ({ children }) => (
   <>
@@ -22,19 +23,21 @@ const MainLayout = ({ children }) => (
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-        <Route path="/temporada" element={<MainLayout><Temporada /></MainLayout>} />
-        <Route path="/decoraciones" element={<MainLayout><Decoraciones /></MainLayout>} />
-        <Route path="/muebles" element={<MainLayout><Muebles /></MainLayout>} />
-        <Route path="/contacto" element={<MainLayout><Contacto /></MainLayout>} />
-        <Route path="/colgantes" element={<MainLayout><Colgantes /></MainLayout>} />
-        <Route path="/carrito" element={<MainLayout><Carrito /></MainLayout>} />
-        <Route path="/product/:productId" element={<MainLayout><ProductDetail /></MainLayout>} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+    <CartProvider>  {/* Envolver todo en CartProvider */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+          <Route path="/temporada" element={<MainLayout><Temporada /></MainLayout>} />
+          <Route path="/decoraciones" element={<MainLayout><Decoraciones /></MainLayout>} />
+          <Route path="/muebles" element={<MainLayout><Muebles /></MainLayout>} />
+          <Route path="/contacto" element={<MainLayout><Contacto /></MainLayout>} />
+          <Route path="/colgantes" element={<MainLayout><Colgantes /></MainLayout>} />
+          <Route path="/carrito" element={<MainLayout><Carrito /></MainLayout>} />
+          <Route path="/product/:id" element={<MainLayout><ProductDetail /></MainLayout>} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 };
 

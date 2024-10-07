@@ -15,7 +15,7 @@ const Products = () => {
         console.log(data);  // Verificar que los datos se reciban correctamente
         setProducts(data);  // Actualizar el estado con los productos obtenidos
         setLoading(false);  // Ya no está cargando
-      } catch (error) {
+      } catch (error) { 
         console.error('Error al obtener productos:', error);
         setLoading(false);  // Aún si hay error, dejar de cargar
       }
@@ -32,12 +32,12 @@ const Products = () => {
     <div>
       <Grid2 container spacing={4} justifyContent="center">
         {products.map((product) => (
-          <Grid2 item key={product.id} xs={12} sm={6} md={4}>
+          <Grid2 item key={product.sku} xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
                 component="img"
                 height="200"
-                image={product.imagen} // Usar la imagen de la API
+                image={product.imagen_portada} // Usar la imagen de la API
                 alt={product.nombre}
               />
               <CardContent>

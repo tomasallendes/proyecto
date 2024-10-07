@@ -2,12 +2,8 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import car1 from '../img/imagen1.jpg';
-import car2 from '../img/imagen2.jpg';
-import car3 from '../img/imagen3.jpg';
 
-
-const Carousel = () => {
+const Carousel = ({ width = '60%', images = [] }) => { // Definimos valores por defecto
   const settings = {
     dots: true,
     infinite: true,
@@ -18,17 +14,13 @@ const Carousel = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width: '60%' }}> {/* Ajusta el ancho según sea necesario */} 
+      <div style={{ width }}> {/* Usamos la prop width */}
         <Slider {...settings}>
-          <div>
-            <img src={car1} alt="Slide 1" style={{ width: '100%', objectFit: 'cover' }} />
-          </div>
-          <div>
-            <img src={car2} alt="Slide 2" style={{ width: '100%', objectFit: 'cover' }} />
-          </div>
-          <div>
-            <img src={car3} alt="Slide 3" style={{ width: '100%', objectFit: 'cover' }} />
-          </div>
+          {images.map((image, index) => ( // Iteramos sobre el array de imágenes
+            <div key={index}>
+              <img src={image} alt={`Slide ${index + 1}`} style={{ width: '100%', objectFit: 'cover' }} />
+            </div>
+          ))}
         </Slider>
       </div>
     </div>

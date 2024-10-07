@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from './Cartcontext';
+import { Typography, Button, List, ListItem } from '@mui/material';
 
-function Carrito() {
+const Carrito = () => {
+  const { cartItems } = useContext(CartContext); // Obtener los productos del carrito
+
   return (
     <div>
-      <h1>Carrito de Compras</h1>
-      <p>Aquí se mostrarán los productos que has añadido al carrito.</p>
+      <Typography variant="h4">Carrito de Compras</Typography>
+      <List>
+        {cartItems.map((item, index) => (
+          <ListItem key={index}>
+            <Typography>{item.nombre} - {item.precio} USD</Typography>
+          </ListItem>
+        ))}
+      </List>
+      <Button variant="contained" color="primary">Proceder al Pago</Button>
     </div>
   );
-}
+};
 
 export default Carrito;
