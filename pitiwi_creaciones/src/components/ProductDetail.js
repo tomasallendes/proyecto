@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext  } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Carousel from './Carousel';  // Importa tu componente de Carrusel
 import { Grid, Typography, Box, Button} from '@mui/material';
 import { CartContext } from './Cartcontext';
+import ProductCarousel from './Productcarousel';
 
 const ProductDetails = () => {
   const { id } = useParams();  // Obtener el id del producto desde la URL
   const [product, setProduct] = useState(null);  // Estado para almacenar el producto
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext); // Usar el contexto del carrito
+  const location = useLocation();
+  const { products } = location.state;
+  console.log(products)
   useEffect(() => {
     // Hacer la petición a la API para obtener los detalles del producto
     const fetchProduct = async () => {
@@ -69,6 +73,7 @@ const ProductDetails = () => {
         </Button>
         </Box>
       </Grid>
+      <ProductCarousel products={products} />
 
     </Grid>
   );

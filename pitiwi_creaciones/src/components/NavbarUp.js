@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // Importa el ícono del carrito
 import PhoneIcon from '@mui/icons-material/Phone'; // Ícono del teléfono
-import logo from '../img/foto1.jpg';
+import logo from '../img/Logo.jpg';
 import LoginIcon from '@mui/icons-material/Login'; // Ícono del Login
 
 const NavbarUp = () => {

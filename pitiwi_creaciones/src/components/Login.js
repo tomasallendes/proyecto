@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, Container, Grid, Alert } from '@mui/material';
 import { Lock, Email } from '@mui/icons-material'; // Importar íconos
-import logo from '../img/foto1.jpg';
+import logo from '../img/Logo.jpg';
 
 const Login = () => {
   // Estado para almacenar el correo electrónico, la contraseña y el error

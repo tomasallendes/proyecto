@@ -3,20 +3,37 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-const Carousel = ({ width = '60%', images = [] }) => { // Definimos valores por defecto
+const Carousel = ({ width = '60%', images = [] }) => {
+  // Filtra las imágenes no nulas
+  const validImages = images.filter(image => image !== null);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1,  // Muestra una imagen por slide
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
   };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width }}> {/* Usamos la prop width */}
+      <div style={{ width }}>
         <Slider {...settings}>
-          {images.map((image, index) => ( // Iteramos sobre el array de imágenes
+          {validImages.map((image, index) => (
             <div key={index}>
               <img src={image} alt={`Slide ${index + 1}`} style={{ width: '100%', objectFit: 'cover' }} />
             </div>

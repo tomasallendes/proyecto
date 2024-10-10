@@ -30,37 +30,38 @@ const Products = () => {
 
   return (
     <div>
-      <Grid2 container spacing={4} justifyContent="center">
-        {products.map((product) => (
-          <Grid2 item key={product.sku} xs={12} sm={6} md={4}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="200"
-                image={product.imagen_portada} // Usar la imagen de la API
-                alt={product.nombre}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div">
-                  {product.nombre}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {product.precio}
-                </Typography>
-                <Button
-                  component={Link}
-                  to={`/product/${product.id}`}
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: '10px' }}
-                >
-                  Ver Detalles
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid2>
-        ))}
-      </Grid2>
+        <Grid2 container spacing={4} justifyContent="center">
+          {products.map((product) => (
+            <Grid2 item key={product.sku} xs={12} sm={6} md={4}>
+              <Card>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={product.imagen_portada} // Usar la imagen de la API
+                  alt={product.nombre}
+                />
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    {product.nombre}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {product.precio}
+                  </Typography>
+                  <Button
+                    component={Link}
+                    to={`/product/${product.id}`}
+                    variant="contained"
+                    color="primary"
+                    state={{ products }}
+                    style={{ marginTop: '10px' }}
+                  >
+                    Ver Detalles
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid2>
+          ))}
+        </Grid2>
     </div>
   );
 };
