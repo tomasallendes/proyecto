@@ -9,9 +9,10 @@ const ProductDetails = () => {
   const { id } = useParams();  // Obtener el id del producto desde la URL
   const [product, setProduct] = useState(null);  // Estado para almacenar el producto
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useContext(CartContext); // Usar el contexto del carrito
   const location = useLocation();
-  const { products } = location.state;  // Obtener los productos para el carrusel
+  const { products } = location.state || {};   // Obtener los productos para el carrusel
+  const { addToCart, isInCart } = useContext(CartContext);
+
   console.log(products);
 
   useEffect(() => {
@@ -38,6 +39,14 @@ const ProductDetails = () => {
   if (!product) {
     return <Typography>Producto no encontrado</Typography>;
   }
+
+  const handleAddToCart = () => {
+    if (!isInCart(product.id)) {
+      addToCart(product); // Solo lo añade si no está en el carrito
+    } else {
+      console.log('El producto ya está en el carrito');
+    }
+  };
 
   // Convertimos las imágenes en un array para pasarlas al carrusel
   const images = [product.imagen_portada, product.imagen1, product.imagen2].filter(Boolean);  // Filtramos imágenes que no sean nulas
@@ -76,9 +85,8 @@ const ProductDetails = () => {
           <Button 
             variant="contained" 
             color="primary" 
-            onClick={() => addToCart(product)}
-            style={{ marginTop: '10px' }}>
-            Añadir al carrito
+            onClick={handleAddToCart}>
+            {isInCart(product.id) ? 'Producto en el carrito' : 'Añadir al carrito'}
           </Button>
         </Box>
       </Grid>
